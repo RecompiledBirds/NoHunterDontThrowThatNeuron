@@ -1,8 +1,6 @@
 ﻿using BepInEx;
 using MoreSlugcats;
-using System.Security.Permissions;
 
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 namespace NoHunterPatches
 {
     [BepInPlugin("RecompiledBirds.HunterKeepsNeuron", "No Hunter! Don't throw that neuron!", "0.0.1")]
@@ -18,10 +16,9 @@ namespace NoHunterPatches
 
         public bool IsThrowableHook(On.Player.orig_IsObjectThrowable orig, Player self, PhysicalObject obj)
         {
-            if (((obj is NSHSwarmer) || (obj is SpearMasterPearl)) /*&& !self.input[0].crouchToggle*/) return false;
-            bool result = orig(self, obj);
+            if ((obj is NSHSwarmer) || (obj is SpearMasterPearl)) return false;
 
-            return result;
+            return orig(self, obj);
         }
     }
 }
